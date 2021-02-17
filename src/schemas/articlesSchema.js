@@ -9,8 +9,8 @@ const ArticleSchema = new Schema({
   category: { type: String, required: true },
   cover: { type: String, required: true },
   reviews: [{ text: { type: String }, user: { type: String } }],
-  author: [{ type: Schema.Types.ObjectId, ref: "Author" }],
-  claps: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  author: { type: Schema.Types.ObjectId, ref: "Author" },
+  claps: [{ type: Schema.Types.ObjectId, ref: "Author" }],
 
 
 },   { timestamps: true });

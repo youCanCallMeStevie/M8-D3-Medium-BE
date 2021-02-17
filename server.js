@@ -3,8 +3,8 @@ const dotenv = require("dotenv");
 const listEndpoints = require("express-list-endpoints");
 const articlesRoute = require("./src/routes/articleRoute");
 const authorsRoute = require("./src/routes/authorRoute");
-
-
+const logInRoute = require("./src/routes/logInRoute");
+const registerRoute = require("./src/routes/registerRoute");
 const {
   notFoundHandler,
   badRequestHandler,
@@ -25,6 +25,9 @@ server.use(express.json());
 //ROUTES
 server.use("/articles", articlesRoute);
 server.use("/authors", authorsRoute);
+// server.use("/login", logInRoute)
+server.use("/register", registerRoute)
+
 
 
 //ERROR HANDLERS
