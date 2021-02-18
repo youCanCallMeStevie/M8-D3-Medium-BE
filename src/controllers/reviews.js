@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const q2m = require("query-to-mongo");
 const ReviewsSchema = require("../schemas/reviewsSchema"); //importing the model, the wrapper of the schema
-const ArticleSchema = require("../schemas/articlesSchema"); //importing the model, the wrapper of the schema
+const ArticleSchema = require("../schemas/articlesSchema"); 
+const ApiError = require("../classes/apiError");
 
 exports.getReviewsController = async (req, res, next) => {
   try {
@@ -13,8 +14,7 @@ exports.getReviewsController = async (req, res, next) => {
     res.send(reviews);
   } catch (error) {
     console.log("getReviewsController error: ", error);
-    res.status(500).json({ success: false, errors: "Internal Server Error" });
-  }
+next(error)  }
 };
 
 exports.getOneReviewController = async (req, res, next) => {
@@ -32,19 +32,17 @@ exports.getOneReviewController = async (req, res, next) => {
     );
 
     if (reviews && reviews.length > 0) {
-      res.send(reviews[0]);
+      res.status(200).json({success: true, data: reviews});
     } else {
-      const error = new Error(
-        `Review with id ${mongoose.Types.ObjectId(
-          req.params.reviewsId
-        )} not found`
-      );
-      res.status(404).json({ success: false, errors: error });
-      next(error);
+
+      throw new ApiError(404, `Review with id ${mongoose.Types.ObjectId(
+        req.params.reviewsId
+      )} not found`);
+        
     }
   } catch (error) {
     console.log("getOneReviewController error: ", error);
-    res.status(500).json({ success: false, errors: "Internal Server Error" });
+    next(error)
   }
 };
 
@@ -68,10 +66,11 @@ exports.postReviewController = async (req, res, next) => {
       },
       { runValidators: true, new: true }
     );
-    res.status(201).json({ success: true, reviewAdded: _id });
+    if(!updated) {
+      throw new ApiError(404, `Article not found`);
+    }
 } catch (error) {
     console.log("postReviewController: ", error);
-    res.status(500).json({ success: false, errors: "Internal Server Error" });
     next(error);
   }
 };

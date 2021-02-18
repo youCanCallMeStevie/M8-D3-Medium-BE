@@ -4,19 +4,22 @@ const router = express.Router();
 const {
   getAuthorsController,
   getOneAuthorController,
-  postAuthorController,
+  // postAuthorController,
   editAuthorController,
   deleteAuthorController,
 } = require("../controllers/authors");
 
+
+const {authorize} = require("../auth/middleware")
+
 const validation = require("../validation/validationMiddleware");
 const valSchema = require("../validation/validationSchema");
 
-router.get("/", getAuthorsController);
-router.get("/me", )
-router.get("/:id", getOneAuthorController);
-router.post("/", validation(valSchema.authorSchema), postAuthorController);
-router.put("/:id", validation(valSchema.authorSchema), editAuthorController);
-router.delete("/:id", deleteAuthorController);
+router.get("/", authorize, getAuthorsController);
+router.get("/:id", authorize, getOneAuthorController);
+// router.post("/", authorize, validation(valSchema.authorSchema), postAuthorController);
+router.put("/:id", authorize, validation(valSchema.authorSchema), editAuthorController);
+router.delete("/:id", authorize, deleteAuthorController);
+
 
 module.exports = router;

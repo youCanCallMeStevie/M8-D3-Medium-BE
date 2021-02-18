@@ -1,13 +1,19 @@
-// const express = require("express");
-// const registerRouter = express.Router();
-// const {
-//   registerController,
-// } = require("../controllers/logIn");
+const express = require("express");
 
-// const validation = require("../validation/validationMiddleware");
-// const valSchema = require("../validation/validationSchema");
+const router = express.Router();
+const { postAuthorController } = require("../controllers/authors");
 
-// registerRouter.post("/", validation(valSchema.authorSchema), registerController
-// );
+const { login, logout } = require("../controllers/login");
 
-// module.exports = registerRouter;
+const validation = require("../validation/validationMiddleware");
+const valSchema = require("../validation/validationSchema");
+
+router.post(
+  "/register",
+  validation(valSchema.authorSchema),
+  postAuthorController
+);
+router.post("/login", login);
+router.post("/logout", logout);
+
+module.exports = router;

@@ -4,7 +4,6 @@ const listEndpoints = require("express-list-endpoints");
 const articlesRoute = require("./src/routes/articleRoute");
 const authorsRoute = require("./src/routes/authorRoute");
 const logInRoute = require("./src/routes/logInRoute");
-const registerRoute = require("./src/routes/registerRoute");
 const {
   notFoundHandler,
   badRequestHandler,
@@ -15,8 +14,7 @@ const cors = require("cors");
 
 //INITIAL SETUP
 const server = express();
-dotenv.config();
-const port = process.env.PORT;
+const port = process.env.PORT || 3006
 
 //MIDDLEWARES
 server.use(cors());
@@ -25,8 +23,7 @@ server.use(express.json());
 //ROUTES
 server.use("/articles", articlesRoute);
 server.use("/authors", authorsRoute);
-// server.use("/login", logInRoute)
-server.use("/register", registerRoute)
+server.use("/", logInRoute)
 
 
 
@@ -44,8 +41,8 @@ mongoose
   })
   .then(
     server.listen(port, () => {
-      if (server.get("env") === "production")
-        console.log("Server is running on CLOUD on PORT:", port);
+      // if (server.get("env") === "production")
+        // console.log("Server is running on CLOUD on PORT:", port);
       console.log("Server is running LOCALLY on PORT:", port);
     })
   )
