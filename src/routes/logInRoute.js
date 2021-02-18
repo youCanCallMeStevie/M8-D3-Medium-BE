@@ -10,7 +10,7 @@ const valSchema = require("../validation/validationSchema");
 
 router.post(
   "/register",
-  validation(valSchema.authorSchema),
+//   validation(valSchema.authorSchema),
   postAuthorController
 );
 router.post("/login", login);

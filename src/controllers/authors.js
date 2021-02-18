@@ -37,7 +37,8 @@ exports.postAuthorController = async (req, res, next) => {
   try {
     const newAuthor = new AuthorModel(req.body);
     const { _id } = await newAuthor.save();
-    res.status(201).json({ success: true, _id: _id });
+    console.log("newAuthor", newAuthor);
+    res.status(200).json({success: true, _id: _id})
   } catch (error) {
     console.log("postAuthorController error: ", error);
     next(error);

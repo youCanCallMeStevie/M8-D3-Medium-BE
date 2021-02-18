@@ -40,9 +40,9 @@ router.post("/:id", authorize, validation(valSchema.reviewSchema), postReviewCon
 router.put("/:id/reviews/:reviewId", authorize, validation(valSchema.reviewSchema), editReviewController);
 router.delete("/:id/reviews/:reviewId", authorize, deleteReviewController);
 
-router.post(":/id/clap", authorize, updateClap);
-router.post(":/id/removeClap", authorize, removeClap);
-router.get(":/id/calculateClap", calculateClap);
+router.post("/:id/clap", authorize, updateClap);
+router.post("/:id/removeClap", authorize, removeClap);
+router.get("/:id/calculateClap", calculateClap);
 
 
 module.exports = router;
