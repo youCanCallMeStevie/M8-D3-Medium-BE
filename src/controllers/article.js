@@ -45,9 +45,9 @@ exports.getOneArticleController = async (req, res, next) => {
 
 exports.createNewArticleController = async (req, res, next) => {
   try {
-    const newArticle = new ArticleModel(req.body); //creating new instance, passing from the request body
-    const { _id } = await newArticle.save(); //save needs to be async as it is returning a promise, save is similar to write. when we save the record in the db, the new document will be returned
-
+    const article = {...req.body, author: mongoose.Types.ObjectId(req.user._id)}
+const newArticle = new ArticleModel(article)
+const {_id} = await newArticle.save()//save needs to be async as it is returning a promise, save is similar to write. when we save the record in the db, the new document will be returned
     res.status(201).json({ _id });
   } catch (error) {
     console.log("createNewArticleController:", error);

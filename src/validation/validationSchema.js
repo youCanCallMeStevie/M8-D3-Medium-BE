@@ -6,7 +6,7 @@ const schemas = {
     content: Joi.string().required(),
     category: Joi.object().keys({
       name: Joi.string().required(),
-      img: Joi.string().required(),
+      img: Joi.string(),
     }),
     cover: Joi.string().required(),
   }),

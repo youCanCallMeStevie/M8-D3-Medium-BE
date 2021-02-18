@@ -8,7 +8,7 @@ const ArticleSchema = new Schema(
     content: { type: String, required: true },
     category: {
       name: { type: String, required: true },
-      img: { type: String, required: true },
+      img: { type: String},
     },
     cover: { type: String, required: true },
     reviews: [

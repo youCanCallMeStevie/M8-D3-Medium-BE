@@ -42,7 +42,7 @@ AuthorSchema.methods.toJSON = function () {
 
 AuthorSchema.statics.findByCredentials = async function (email, plainPW) {
   const author = await this.findOne({ email })
-  console.log(author)
+  // console.log(author)
 
   if (author) {
     const isMatch = await bcrypt.compare(plainPW, author.password)
@@ -55,7 +55,6 @@ AuthorSchema.statics.findByCredentials = async function (email, plainPW) {
 
 AuthorSchema.pre("save", async function (next) {
   const author = this
-  console.log(author)
   const plainPW = author.password
 
   if (author.isModified("password")) {

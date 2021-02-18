@@ -9,7 +9,7 @@ const authorize = async (req, res, next) => {
     const user = await AuthorModel.findOne({
       _id: decoded._id,
     })
-
+console.log("token", token)
     if (!user) {
       throw new Error()
     }
